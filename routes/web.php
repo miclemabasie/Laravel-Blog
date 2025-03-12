@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -15,4 +16,4 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get("/", [PagesController::class, 'index'])->name('index');
 
-
+Route::resource('/post', PostController::class);

@@ -14,7 +14,9 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->string('title');
+            $table->string('image_path')->nullable();
             $table->longText('content');
+            $table->boolean('published')->default(0);
             $table->timestamps();
         });
     }
