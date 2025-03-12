@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -12,6 +11,11 @@ class AuthController extends Controller
     // Show login form
     public function login()
     {
+        // Redirect authenticated users to index page
+        if (Auth::check()) {
+            return redirect()->route('index');
+        }
+
         return view('auth.login');
     }
 
@@ -23,8 +27,6 @@ class AuthController extends Controller
             'name' => 'required|string',
             'password' => 'required|string|min:6',
         ]);
-
-        // dd($request->all());
 
         $credentials = ['name' => $request->name, 'password' => $request->password];
 
@@ -38,6 +40,11 @@ class AuthController extends Controller
     // Show signup form
     public function signup()
     {
+        // Redirect authenticated users to index page
+        if (Auth::check()) {
+            return redirect()->route('index');
+        }
+
         return view('auth.signup');
     }
 
@@ -59,10 +66,18 @@ class AuthController extends Controller
         return redirect()->route('login')->with('success', 'Account created successfully. Please log in.');
     }
 
+    public function profile(Request $request)
+    {
+        $user = auth()->user(); // Get the authenticated user
+        $posts = $user->posts; // Fetch all posts belonging to the user
+
+        return view("users.profile", compact("user", "posts"));
+    }
+
     // Logout function
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('login')->with('success', 'You have been logged out.');
+        return redirect()->route('index')->with('success', 'You have been logged out.');
     }
 }

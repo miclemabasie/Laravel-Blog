@@ -72,37 +72,34 @@ class PostController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
-            'published' => 'boolean',
+            'image' => 'required|string',
         ]);
 
-        if ($request->hasFile('image')) {
-            if ($post->image_path) {
-                Storage::disk('public')->delete($post->image_path); // Delete old image
-            }
-            $post->image_path = $request->file('image')->store('posts', 'public');
-        }
-
+        // Update the post fields with the validated data
         $post->update([
             'title' => $validated['title'],
             'content' => $validated['content'],
-            'image_path' => $post->image_path ?? $post->image_path,
+            'image_path' => $validated['image'],
             'published' => $request->input('published', false),
         ]);
 
-        return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
+        // Redirect to the post show route with success message
+        return redirect()->route('post.show', $post->id)
+            ->with('success', 'Post updated successfully.')
+            ->with('post', $post); // Pass the updated post to the next page
     }
+
 
     /**
      * Remove the specified post from storage.
      */
     public function destroy(Post $post)
     {
-        if ($post->image_path) {
-            Storage::disk('public')->delete($post->image_path); // Delete image
-        }
+        // if ($post->image_path) {
+        //     Storage::disk('public')->delete($post->image_path); // Delete image
+        // }
 
         $post->delete();
-        return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
+        return redirect()->route('profile', Auth::id())->with('success', 'Post deleted successfully.');
     }
 }

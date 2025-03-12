@@ -26,5 +26,7 @@
         </div>
 
         <button type="submit">Signup</button>
+        <p class="redirect-text">Already have an account? <a href="{{ route("login") }}">Login</a></p>
+
     </form>
 </x-auth-layout>

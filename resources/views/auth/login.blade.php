@@ -6,7 +6,7 @@
     <form action="{{ route('login.post') }}" method="POST">
         @csrf
         <div class="input-group">
-            <label for="name">Name</label>
+            <label for="name">Username</label>
             <input type="text" id="name" name="name" value="{{ old('name') }}" required>
             @error('name') <small class="error">{{ $message }}</small> @enderror
         </div>
@@ -18,5 +18,7 @@
         </div>
 
         <button type="submit">Login</button>
+
+        <p class="redirect-text">Don't have an account? <a href="{{ route("signup") }}">Singup</a></p>
     </form>
 </x-auth-layout>

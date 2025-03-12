@@ -10,6 +10,7 @@
     <title>Electron | Blog, Magazine, &amp; Lifestyel Wordpress Theme</title>
 
     <link rel="stylesheet" href="/auth/forms.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/auth/profilepage.css" type="text/css" media="all" />
     <link rel="stylesheet" href="/css/font-materialdesign.css" type="text/css" media="all" />
     <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css" media="all" />
     <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" media="all" />

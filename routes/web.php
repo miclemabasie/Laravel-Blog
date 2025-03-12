@@ -11,7 +11,8 @@ Route::post('/login', [AuthController::class, 'loginPost'])->name('login.post');
 Route::get('/signup', [AuthController::class, 'signup'])->name('signup');
 Route::post('/signup', [AuthController::class, 'signupPost'])->name('signup.post');
 
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get("/profile/{id}", [AuthController::class, "profile"])->name('profile');
 
 
 Route::get("/", [PagesController::class, 'index'])->name('index');
