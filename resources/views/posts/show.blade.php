@@ -6,7 +6,7 @@
                     <div class="col-sm-8">
                         <div class="blog-list">
                             <div class="blog-item single-content">
-                                <img src="{{ asset($post->image_path) }}" alt="" />
+                                <img class="post-image" src="{{ asset($post->image_path) }}" alt="" />
                                 <div class="info">
                                     <div class="title">
                                         <a href="post-detail.html">{{ $post->title }}</a>
