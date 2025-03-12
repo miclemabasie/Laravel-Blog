@@ -52,78 +52,12 @@
                             <ol class="comment-list">
                                 <!-- Go through all the posts comments -->
 
-                                <li class="comment">
-                                    <div class="content">
-                                        <div class="comment-author">
-                                            <img alt="author image" src="images/author/avatar.png" class="avatar" />
-                                        </div>
-                                        <div class="comment-content">
-                                            <div class="meta">
-                                                <h3 class="name">
-                                                    Amelia Anderson
-                                                </h3>
-                                                <span class="time">Oct 02, 2018 @ 1:48
-                                                    PM</span>
-                                                <span class="divider">-</span>
-                                                <span class="link"><a class="color" href="#">Reply</a></span>
-                                            </div>
-                                            <div class="text">
-                                                <p>
-                                                    Sed ut perspiciatis unde
-                                                    omnis iste natus error sit
-                                                    voluptatem accusantium
-                                                    doloremque laudantium, totam
-                                                    rem aperiam, eaque ipsa quae
-                                                    ab illo inventore veritatis
-                                                    et quasi architecto beatae
-                                                    vitae dicta sunt explicabo.
-                                                    Nemo enim ipsam voluptatem
-                                                    quia voluptas sit aspernatur
-                                                    aut odit aut fugit.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
+                                @foreach ($post->comments as $comment)
+                                    <x-posts.comment-item :$comment :$post />
+                                @endforeach
                             </ol>
                         </div>
-                        <div class="respond-wrapper">
-                            <div class="comment-respond">
-                                <h4 class="comment-title">Leave a Comment</h4>
-                                <p class="comment-subtitle">
-                                    Your feedback is valuable for us. Your email
-                                    will not be published.
-                                </p>
-                                <div class="mb-3"></div>
-                                <form class="comment-form">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <textarea name="comment" id="comment" class="highlighted mb-3"
-                                                placeholder="Your comment" rows="8"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <input type="text" class="highlighted" name="author" id="author"
-                                                placeholder="Name (required)" />
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input type="email" class="highlighted" name="email" id="email"
-                                                placeholder="Email (required)" />
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input type="url" class="highlighted" name="url" id="url"
-                                                placeholder="Website" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <a href="#" class="button mt-2">Submit Comment</a>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                        <x-posts.comment-form :$post />
                     </div>
                 </div>
             </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -102,4 +103,40 @@ class PostController extends Controller
         $post->delete();
         return redirect()->route('profile', Auth::id())->with('success', 'Post deleted successfully.');
     }
+
+    // make a comment on a post
+    public function comment(Request $request, Post $post)
+    {
+        $validated = $request->validate([
+            'comment' => 'required|string',
+        ]);
+        dump($post);
+        Comment::create([
+            'user_id' => Auth::id(), // Assign the logged-in user's ID
+            'post_id' => $post->id, // Assign post id to the current post
+            'content' => $validated['comment'],
+        ]);
+
+        // Redirect to the post show route with success message
+        return redirect()->route('post.show', $post->id)
+            ->with('success', 'your comment was saved!.')
+            ->with('post', $post); // Pass the updated post to the next page
+    }
+
+
+    public function destroyComment(Comment $comment)
+    {
+        // Get the post associated with the comment
+        $post = $comment->post;
+
+        // Delete the comment
+        $comment->delete();
+
+        // Redirect to the post's detail page
+        return redirect()->route('post.show', $post->id)
+            ->with('success', 'Comment deleted successfully.');
+    }
+
+
+
 }

@@ -17,4 +17,7 @@ Route::get("/profile/{id}", [AuthController::class, "profile"])->name('profile')
 
 Route::get("/", [PagesController::class, 'index'])->name('index');
 
+Route::post('/posts/{post}/comment', [PostController::class, 'comment'])->name('post.comment');
+Route::delete('/comment/{comment}', [PostController::class, 'destroyComment'])->name('comment.destroy');
+
 Route::resource('/post', PostController::class);
