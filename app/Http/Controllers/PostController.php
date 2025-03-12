@@ -37,11 +37,6 @@ class PostController extends Controller
             'image' => 'nullable|string',
         ]);
 
-        // $imagePath = null;
-        // if ($request->hasFile('image')) {
-        //     $imagePath = $request->file('image')->store('posts', 'public');
-        // }
-
         Post::create([
             'user_id' => Auth::id(), // Assign the logged-in user's ID
             'title' => $validated['title'],
