@@ -30,7 +30,7 @@
 <body>
     <div class="site">
 
-
+        <x-partials.menu />
         {{ $slot }}
 
     </div>

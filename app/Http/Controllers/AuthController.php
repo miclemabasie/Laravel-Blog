@@ -15,18 +15,21 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    // Handle login form submission
+    // Handle form login
     public function loginPost(Request $request)
     {
+        // Validate the request data
         $request->validate([
-            'username' => 'required|string',
+            'name' => 'required|string',
             'password' => 'required|string|min:6',
         ]);
 
-        $credentials = ['email' => $request->username, 'password' => $request->password];
+        // dd($request->all());
+
+        $credentials = ['name' => $request->name, 'password' => $request->password];
 
         if (Auth::attempt($credentials)) {
-            return redirect()->route('dashboard')->with('success', 'Login successful');
+            return redirect()->route('index')->with('success', 'Login successful');
         }
 
         return back()->withErrors(['login' => 'Invalid credentials'])->withInput();
