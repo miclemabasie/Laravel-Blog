@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -33,23 +34,23 @@ class PostController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
-            'published' => 'boolean',
+            'image' => 'nullable|string',
         ]);
 
-        $imagePath = null;
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('posts', 'public');
-        }
+        // $imagePath = null;
+        // if ($request->hasFile('image')) {
+        //     $imagePath = $request->file('image')->store('posts', 'public');
+        // }
 
         Post::create([
+            'user_id' => Auth::id(), // Assign the logged-in user's ID
             'title' => $validated['title'],
             'content' => $validated['content'],
-            'image_path' => $imagePath,
+            'image_path' => $validated['image'],
             'published' => $request->input('published', false),
         ]);
 
-        return redirect()->route('posts.index')->with('success', 'Post created successfully.');
+        return redirect()->route('index')->with('success', 'Post created successfully.');
     }
 
     /**
