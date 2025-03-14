@@ -56,11 +56,10 @@ Before you begin, make sure you have the following installed:
    php artisan migrate
    ```
 
-7. **Seed the database (optional, for test data):**
-   You can seed the database with some sample data by running:
-   ```bash
-   php artisan db:seed
-   ```
+7. **Runing the project**
+    ```bash
+    php artisan serve
+    ```
 
 
 ## Testing
