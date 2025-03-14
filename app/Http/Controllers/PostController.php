@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Post;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -118,10 +119,13 @@ class PostController extends Controller
 
     public function comment(Request $request, Post $post)
     {
+
+        if (!Auth::check())
+            return redirect('/login')->with('error', 'Login to make a comment');
         $validated = $request->validate([
             'comment' => 'required|string',
         ]);
-        dump($post);
+
         Comment::create([
             'user_id' => Auth::id(), // Assign the logged-in user's ID
             'post_id' => $post->id, // Assign post id to the current post
