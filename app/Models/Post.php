@@ -44,3 +44,4 @@ class Post extends Model
         return $this->hasMany(Comment::class)->latest()->limit(5);
     }
 }
+
