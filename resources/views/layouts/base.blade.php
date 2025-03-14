@@ -27,8 +27,9 @@
     <div class="site">
 
         <x-partials.menu />
-        {{ $slot }}
 
+
+        {{ $slot }}
     </div>
     <div id="scroll-top">
         <i class="fa fa-arrow-up"></i>

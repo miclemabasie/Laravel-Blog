@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
+
+    // public function __construct()
+    // {
+    //     $this->middleware('auth')->except(['index', 'show']);
+    // }
+
+
     /**
      * Display a listing of the posts.
      */
@@ -32,6 +39,8 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        if (!Auth::check())
+            return redirect('/login')->with('error', 'Register to create a new post');
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
@@ -62,7 +71,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.edit', compact('post'));
+        if (!Auth::check() || Auth::user()->id != $post->id)
+            return view('posts.edit', compact('post'));
     }
 
     /**
@@ -70,6 +80,8 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        if (!Auth::check() || Auth::user()->id != $post->id)
+            return redirect('/login')->with('error', 'could not verify your ownership of this post');
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
@@ -104,7 +116,6 @@ class PostController extends Controller
         return redirect()->route('profile', Auth::id())->with('success', 'Post deleted successfully.');
     }
 
-    // make a comment on a post
     public function comment(Request $request, Post $post)
     {
         $validated = $request->validate([
