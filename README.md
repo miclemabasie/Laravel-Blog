@@ -1,10 +1,5 @@
-Here's a sample `README.md` file for your Laravel project, including setup, testing guide, and other necessary aspects:
-
-```markdown
 # Laravel Blog Project
-
-This is a simple blog application built with Laravel. It allows users to create, update, and delete posts, as well as leave comments on posts. The project includes user authentication, post management, and comment features.
-
+Blog application build with laravel, it allows users to create accounts, create, read, update and delete articles
 
 ## Requirements
 
@@ -14,6 +9,8 @@ Before you begin, make sure you have the following installed:
 - Composer
 - MySQL
 - Laravel 12
+
+**Make sure XAMMP is running on windows and mysql service is started.**
 
 ## Installation
 
